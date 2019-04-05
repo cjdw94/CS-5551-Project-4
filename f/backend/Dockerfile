@@ -18,4 +18,5 @@ WORKDIR /app
 RUN pip3 install -r requirements.txt
 
 # This is the runtime command for the container
+RUN chmod +x app.py
 CMD python3 app.py
