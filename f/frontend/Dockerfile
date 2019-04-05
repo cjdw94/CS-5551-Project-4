@@ -5,7 +5,7 @@ ENV PATH=$PATH:/home/node/.npm-global/bin
 WORKDIR /home/node
 RUN npm install @angular/cli@1.2.6 -g
 WORKDIR /src/app
-COPY package*.json /src/app
+COPY package*.json /src/app/
 RUN npm install && npm cache verify
 COPY ./ /src/app
 
