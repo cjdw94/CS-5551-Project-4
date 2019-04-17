@@ -2,7 +2,7 @@
 
 Very simple backend for conceptual understanding - will be adapted to Python/Flask.
 
-Open a terminal/command prompt and from within the <i>ex_simple_backend_in_node directory</i>,
+Open a terminal/command prompt and from within the <i>ex_simple_backend_in_node</i> directory,
 
 ```sh
 $ npm install
