@@ -312,7 +312,7 @@ openssl req -new -newkey rsa:2048 -nodes -keyout your-server-name.key -out your-
 1.2.45.  Just below the certificate locations in the config file, there is a comment that recommends to generate unique DH parameters.   Go ahead and type the following command into the terminal and wait for it to complete its execution.  It will store the results in the file in the location that is referenced in the following command.
 </br></br>
 ```
-open ssl dhparam -out /etc/pki/nginx/dhparams.pem 2048
+openssl dhparam -out /etc/pki/nginx/dhparams.pem 2048
 ```
 </br>
 
