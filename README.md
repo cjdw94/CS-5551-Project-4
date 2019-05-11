@@ -245,17 +245,17 @@ sudo ln -s /etc/nginx/sites-available/backend-models /etc/nginx/sites-enabled/
 
 1.2.35.  In this case, <b>our domain is maas-umkc.com.</b>   But if you are adapting this tutorial to fit your own needs, obviously the domain can be anything you want - so long as you can afford to register it!
 
-![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_039.PNG?raw=true )
+![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_03x9.PNG?raw=true )
 </br></br>
 
 1.2.36.  This is Name.com's domain dashboard.   The options to the left of "Domain Details" are all the different tools that Name.com provides for you to use with your domain.
 
-![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_040.PNG?raw=true )
+![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_04x0.PNG?raw=true )
 </br></br>
 
 1.2.37.  If you <b>click on "DNS Records"</b>, by default, you will have two DNS rules - one with a wildcard + "." + "your domain" + ".com", the second is just "your domain" + ".com".   Edit both of these entries and put your AWS <b>IPv4 Public IP</b> in as the answers. 
 
-![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_041.png?raw=true )
+![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_04x1.png?raw=true )
 </br></br></br>
 
 1.2.38.  Screenshots were not obtained for this part, but in order to activate/use the SSL certificate(s) that were just purchased, Name.com needs a .csr file from the server itself.   This sounds complicated, but it's pretty easy.   Just use PuTTY to access a terminal for your AWS EC2 instance.   Within the terminal, type the following <b>(to generate a .csr file and a .key file):</b>
@@ -280,7 +280,7 @@ openssl req -new -newkey rsa:2048 -nodes -keyout your-server-name.key -out your-
 
 1.2.39.  Now if you go to Name.com and click on "Advanced Security", you will see a screen similar to that below.  If you wish to access your raw SSL certificate(s) at anytime, just <b>click "Show SSL certificate".</b>
 
-![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_042.PNG?raw=true )
+![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_04x2.PNG?raw=true )
 
 </br></br>
 
@@ -325,7 +325,7 @@ open ssl dhparam -out /etc/pki/nginx/dhparams.pem 2048
 
 1.2.47. <b><u>Congratulations - the hardest parts are officially over!</u></b>   Everything from this point forward should (hopefully) be easy/smooth sailing.  Go to PuTTY and type the following command to install Python 3 (specifically Python 3.6) to the AWS EC2 instance. 
 
-![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_049.PNG?raw=true )
+![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_04x9.PNG?raw=true )
 </br></br></br>
 
 1.2.48.  If it hasn't been done already, use WinSCP to copy the "backend-models" directory from our repository over to /home/ec2-user/.  Then follow along with the commands in the following screenshot - <b>cd backend-models</b>, <b>ls</b> (to see the individual model folders), <b>cd DenseNet121</b> (enter the first model's folder.)
@@ -336,34 +336,34 @@ We are going to create an individual virtual environment for each model.  So typ
 
 Once in the virtual environment, type <b>python36 -m pip install -r requirements.txt</b> to install the specific dependencies for the model's Python 3.6 environment.
 
-![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_050.PNG?raw=true )
+![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_05x0.PNG?raw=true )
 </br></br></br>
 
 1.2.49.  After all of the dependencies have been installed, you can test the Python script and the virtual environment from within the AWS EC2 instance itself.   Open another PuTTY window and type <b>sudo yum install lynx</b> - this will install a very, very basic terminal web browser.   Lynx is not good enough to browse the Internet we know and love, but it is going to be good enough for testing purposes here.
 
-![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_051.PNG?raw=true )
+![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_05x1.PNG?raw=true )
 </br></br></br>
 
 1.2.50.  In the terminal that is currently housing the virtual environment, type <b>gunicorn --bind 127.0.0.1:64000 DenseNet121</b>.   Gunicorn will launch the Python script (DenseNet121.py) and bind it to port 64000.
 
-![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_052.PNG?raw=true )
+![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_05x2.PNG?raw=true )
 </br></br></br>
 
 1.2.51.  In the second terminal, after DenseNet121.py is fully loaded, go ahead and type:
 ```
 lynx http://127.0.0.1:64000/DenseNet121
 ```
-![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_053.PNG?raw=true )
+![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_05x3.PNG?raw=true )
 </br></br></br>
 
 1.2.52.  If you are greeted with the print statement "DenseNet121 Model", then that means the virtual environment is working, Gunicorn is working, and you can successfully navigate to the Flask application via HTTP.
 
-![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_054.PNG?raw=true )
+![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_05x4.PNG?raw=true )
 </br></br></br>
 
 1.2.53.  After you are finished with 1.2.52, type <b>deactivate</b> to exit the virtual environment.
 
-![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_055.PNG?raw=true )
+![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_05x5.PNG?raw=true )
 </br></br></br>
 
 1.2.54. <b> Now repeat steps 1.2.48-1.2.53 for the remaining 6 models to properly install each model's individual virtual environment and test that they will be accessible via lynx.</b>
