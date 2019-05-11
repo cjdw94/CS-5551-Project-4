@@ -151,7 +151,7 @@ This is all that should be needed on the client-side while setting up the backen
 
 1.2.18a.  Note that the EC2 instance public address can be located in the AWS EC2 console dashboard - under "Public DNS (IPv4)" (the address inside the blue box in the picture below.)   <b>Keep in mind that these addresses change every time you relaunch or restore an instance from a backup.</b>
 
-![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_022_a.PNG?raw=true )
+![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_022_a.png?raw=true )
 
 1.2.19.  On the left side of the application window under "Category:", <b>click on "SSH"</b> and expand its subcategories.
 
