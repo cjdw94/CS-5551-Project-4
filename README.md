@@ -1,14 +1,23 @@
 # Full Deployment Tutorial
+
 ###### (Note 1: Tutorial assumes user is using Windows 7, 8, or 10 => modifications to steps may be necessary under macOS or Linux.)
+
 ###### (Note 2: For our deployment on Amazon EC2, we opted for a t2.xlarge instance (x4 vCPU, 16 GB memory, explicitly given 32 GB storage space) - this is because all 7 models deployed (and potentially running) simultaneously require greater than 4 GB memory and 8 GB storage space.)
 </br>
+
 ## Backend
+
 ### Python3/Flask/nginx (Amazon EC2)/Gunicorn+Sockets
+
 ![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_000_a.png )
+
 </br></br>
+
 ## Frontend
 ### Angular CLI and Heroku
+
 ![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_000_b.png )
+
 </br></br></br>
 
 Deployment for our semester project is ultimately broken down into two halves - backend deployment and frontend deployment.
@@ -44,12 +53,13 @@ This is all that should be needed on the client-side while setting up the backen
 
 1.2.1.  First navigate to https://aws.amazon.com/ec2/ 
 
-![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_005.png )
+![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_005.PNG?raw=true )
+
 </br></br>
 
 1.2.1a.  Prices and specs as of 5/10/19:
 
-![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_005_a.png )
+![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_005_a.png?raw=true )
 </br></br>
 
 1.2.2.  Under AWS services -> Find Services -> Click on "EC2"
@@ -87,7 +97,7 @@ This is all that should be needed on the client-side while setting up the backen
 ![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_012.PNG?raw=true )
 </br></br>
 
-1.2.9.  Click "6. Coinfigure Security Group"
+1.2.9.  Click "6. Configure Security Group"
 
 ![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_013.PNG?raw=true )
 </br></br>
@@ -243,7 +253,7 @@ sudo ln -s /etc/nginx/sites-available/backend-models /etc/nginx/sites-enabled/
 
 1.2.37.  If you <b>click on "DNS Records"</b>, by default, you will have two DNS rules - one with a wildcard + "." + "your domain" + ".com", the second is just "your domain" + ".com".   Edit both of these entries and put your AWS <b>IPv4 Public IP</b> in as the answers. 
 
-![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_041.PNG?raw=true )
+![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_041.png?raw=true )
 </br></br></br>
 
 1.2.38.  Screenshots were not obtained for this part, but in order to activate/use the SSL certificate(s) that were just purchased, Name.com needs a .csr file from the server itself.   This sounds complicated, but it's pretty easy.   Just use PuTTY to access a terminal for your AWS EC2 instance.   Within the terminal, type the following <b>(to generate a .csr file and a .key file):</b>
@@ -279,17 +289,17 @@ openssl req -new -newkey rsa:2048 -nodes -keyout your-server-name.key -out your-
 
 1.2.41.  The certificates are now displayed as plaintext.   They can be copy/pasted into a .txt document and moved to the server via WinSCP.   They should be copy/pasted in a style similar to what is shown in the picture below for 1.2.42 - no empty lines above or below the text, and both certificates should be saved in <b>one .txt file</b>.   
 
-![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_044.PNG?raw=true )
+![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_044.png?raw=true )
 </br></br>
 
 1.2.42.  Save the "Server Certificate" and "CA Certificates" plaintext in one .txt file as shown below.  Name the file whatever you want it to be, <b>but be sure that the file extension is changed from ".txt" to ".pem".</b>   <b>We saved ours as "certificate.pem".</b>
 
-![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_045.PNG?raw=true )
+![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_045.png?raw=true )
 </br></br></br>
 
 1.2.43.  Proper plaintext format of certificate, CA certificates, and private key are reiterated in the screenshot below.
 
-![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_046.PNG?raw=true )
+![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_046.png?raw=true )
 </br></br></br>
 
 1.2.44.  At the top of our supplied "backend-models" nginx server config file (which should be at <b>/etc/nginx/sites-available/backend-models</b>), you must specify where the ssl_certificate .pem file and where the ssl_certificate_key .key file are located on the server.   The given information in this screenshot is where <b>our</b> files are - yours can be anywhere on the server that you want, so long as you can provide their location.
