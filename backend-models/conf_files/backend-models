@@ -1,0 +1,493 @@
+server {
+    listen       443 ssl http2 default_server;
+    listen       [::]:443 ssl http2 default_server;
+    server_name  __;
+    root         /usr/share/nginx/html;
+
+    ssl_certificate "/etc/ssl/certificate.pem";
+    ssl_certificate_key "/etc/ssl/certificate.key";
+    # It is *strongly* recommended to generate unique DH parameters
+    # Generate them with: openssl dhparam -out /etc/pki/nginx/dhparams.pem 2048
+    ssl_dhparam "/etc/pki/nginx/dhparams.pem";
+    ssl_session_cache shared:SSL:1m;
+    ssl_session_timeout  10m;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers HIGH:SEED:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!RSAPSK:!aDH:!aECDH:!EDH-DSS-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA:!SRP;
+    ssl_prefer_server_ciphers on;
+
+    # Load configuration files for the default server block.
+    include /etc/nginx/default.d/*.conf;
+
+    #
+    # Wide-open CORS config for nginx
+    #
+
+    location ^~ /DenseNet121 {
+        proxy_pass http://unix:/var/sockets/DenseNet121.sock;
+
+        proxy_buffering off;
+        
+
+
+        # time out settings
+        proxy_connect_timeout 159s;
+        proxy_send_timeout   600;
+        proxy_read_timeout   600;
+        proxy_buffer_size    64k;
+        proxy_buffers     16 32k;
+        proxy_busy_buffers_size 64k;
+        proxy_temp_file_write_size 64k;
+        proxy_pass_header Set-Cookie;
+        proxy_redirect     off;
+        proxy_hide_header  Vary;
+        proxy_set_header   Accept-Encoding '';
+        proxy_ignore_headers Cache-Control Expires;
+        proxy_set_header   Referer $http_referer;
+        proxy_set_header   Host   $host;
+        proxy_set_header   Cookie $http_cookie;
+        proxy_set_header   X-Real-IP  $remote_addr;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+
+
+        if ($request_method = 'OPTIONS') {
+            #add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            #
+            # Custom headers and headers various browsers *should* be OK with but aren't
+            #
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+            #
+            # Tell client that this pre-flight info is valid for 20 days
+            #
+            add_header 'Content-Type' 'application/json';
+            #add_header 'Access-Control-Allow-Origin' 'origin';
+            add_header 'Access-Control-Allow-Credentials' 'true';            
+            add_header 'Access-Control-Max-Age' 1728000;
+            add_header 'Content-Type' 'text/plain; charset=utf-8';
+            add_header 'Content-Length' 0;
+            return 204;
+         }
+         if ($request_method = 'POST') {
+            #add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+            add_header 'Content-Type' 'application/json';
+            #add_header 'Access-Control-Allow-Origin' 'origin';
+            add_header 'Access-Control-Allow-Credentials' 'true';
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+         }
+         if ($request_method = 'GET') {
+            #add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+            add_header 'Content-Type' 'application/json';
+            #add_header 'Access-Control-Allow-Origin' 'origin';
+            add_header 'Access-Control-Allow-Credentials' 'true';
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+         }
+    }
+	
+	location ^~ /InceptionV3 {
+        proxy_pass http://unix:/var/sockets/InceptionV3.sock;
+
+        proxy_buffering off;
+		
+        # time out settings
+        proxy_connect_timeout 159s;
+        proxy_send_timeout   600;
+        proxy_read_timeout   600;
+        proxy_buffer_size    64k;
+        proxy_buffers     16 32k;
+        proxy_busy_buffers_size 64k;
+        proxy_temp_file_write_size 64k;
+        proxy_pass_header Set-Cookie;
+        proxy_redirect     off;
+        proxy_hide_header  Vary;
+        proxy_set_header   Accept-Encoding '';
+        proxy_ignore_headers Cache-Control Expires;
+        proxy_set_header   Referer $http_referer;
+        proxy_set_header   Host   $host;
+        proxy_set_header   Cookie $http_cookie;
+        proxy_set_header   X-Real-IP  $remote_addr;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+        if ($request_method = 'OPTIONS') {
+            #add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            #
+            # Custom headers and headers various browsers *should* be OK with but aren't
+            #
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+            #
+            # Tell client that this pre-flight info is valid for 20 days
+            #
+            add_header 'Content-Type' 'application/json';
+            #add_header 'Access-Control-Allow-Origin' 'origin';
+            add_header 'Access-Control-Allow-Credentials' 'true';            
+            add_header 'Access-Control-Max-Age' 1728000;
+            add_header 'Content-Type' 'text/plain; charset=utf-8';
+            add_header 'Content-Length' 0;
+            return 204;
+         }
+         if ($request_method = 'POST') {
+            #add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+            add_header 'Content-Type' 'application/json';
+            #add_header 'Access-Control-Allow-Origin' 'origin';
+            add_header 'Access-Control-Allow-Credentials' 'true';
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+         }
+         if ($request_method = 'GET') {
+            #add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+            add_header 'Content-Type' 'application/json';
+            #add_header 'Access-Control-Allow-Origin' 'origin';
+            add_header 'Access-Control-Allow-Credentials' 'true';
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+         }
+    }
+
+	location ^~ /MobileNet {
+        proxy_pass http://unix:/var/sockets/MobileNet.sock;
+
+        proxy_buffering off;
+		
+        # time out settings
+        proxy_connect_timeout 159s;
+        proxy_send_timeout   600;
+        proxy_read_timeout   600;
+        proxy_buffer_size    64k;
+        proxy_buffers     16 32k;
+        proxy_busy_buffers_size 64k;
+        proxy_temp_file_write_size 64k;
+        proxy_pass_header Set-Cookie;
+        proxy_redirect     off;
+        proxy_hide_header  Vary;
+        proxy_set_header   Accept-Encoding '';
+        proxy_ignore_headers Cache-Control Expires;
+        proxy_set_header   Referer $http_referer;
+        proxy_set_header   Host   $host;
+        proxy_set_header   Cookie $http_cookie;
+        proxy_set_header   X-Real-IP  $remote_addr;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+        if ($request_method = 'OPTIONS') {
+            #add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            #
+            # Custom headers and headers various browsers *should* be OK with but aren't
+            #
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+            #
+            # Tell client that this pre-flight info is valid for 20 days
+            #
+            add_header 'Content-Type' 'application/json';
+            #add_header 'Access-Control-Allow-Origin' 'origin';
+            add_header 'Access-Control-Allow-Credentials' 'true';            
+            add_header 'Access-Control-Max-Age' 1728000;
+            add_header 'Content-Type' 'text/plain; charset=utf-8';
+            add_header 'Content-Length' 0;
+            return 204;
+         }
+         if ($request_method = 'POST') {
+            #add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+            add_header 'Content-Type' 'application/json';
+            #add_header 'Access-Control-Allow-Origin' 'origin';
+            add_header 'Access-Control-Allow-Credentials' 'true';
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+         }
+         if ($request_method = 'GET') {
+            #add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+            add_header 'Content-Type' 'application/json';
+            #add_header 'Access-Control-Allow-Origin' 'origin';
+            add_header 'Access-Control-Allow-Credentials' 'true';
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+         }
+    }
+
+	location ^~ /Nasnet {
+
+        proxy_pass http://unix:/var/sockets/Nasnet.sock;
+
+        proxy_buffering off;
+		
+        # time out settings
+        proxy_connect_timeout 159s;
+        proxy_send_timeout   600;
+        proxy_read_timeout   600;
+        proxy_buffer_size    64k;
+        proxy_buffers     16 32k;
+        proxy_busy_buffers_size 64k;
+        proxy_temp_file_write_size 64k;
+        proxy_pass_header Set-Cookie;
+        proxy_redirect     off;
+        proxy_hide_header  Vary;
+        proxy_set_header   Accept-Encoding '';
+        proxy_ignore_headers Cache-Control Expires;
+        proxy_set_header   Referer $http_referer;
+        proxy_set_header   Host   $host;
+        proxy_set_header   Cookie $http_cookie;
+        proxy_set_header   X-Real-IP  $remote_addr;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+        if ($request_method = 'OPTIONS') {
+            #add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            #
+            # Custom headers and headers various browsers *should* be OK with but aren't
+            #
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+            #
+            # Tell client that this pre-flight info is valid for 20 days
+            #
+            add_header 'Content-Type' 'application/json';
+            #add_header 'Access-Control-Allow-Origin' 'origin';
+            add_header 'Access-Control-Allow-Credentials' 'true';            
+            add_header 'Access-Control-Max-Age' 1728000;
+            add_header 'Content-Type' 'text/plain; charset=utf-8';
+            add_header 'Content-Length' 0;
+            return 204;
+         }
+         if ($request_method = 'POST') {
+            #add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+            add_header 'Content-Type' 'application/json';
+           #add_header 'Access-Control-Allow-Origin' 'origin';
+            add_header 'Access-Control-Allow-Credentials' 'true';
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+         }
+         if ($request_method = 'GET') {
+            #add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+            add_header 'Content-Type' 'application/json';
+            #add_header 'Access-Control-Allow-Origin' 'origin';
+            add_header 'Access-Control-Allow-Credentials' 'true';
+           add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+         }
+    }
+
+	location ^~ /ResNet50 {
+        proxy_pass http://unix:/var/sockets/ResNet50.sock;
+
+        proxy_buffering off;
+		
+        # time out settings
+        proxy_connect_timeout 159s;
+        proxy_send_timeout   600;
+        proxy_read_timeout   600;
+        proxy_buffer_size    64k;
+        proxy_buffers     16 32k;
+        proxy_busy_buffers_size 64k;
+        proxy_temp_file_write_size 64k;
+        proxy_pass_header Set-Cookie;
+        proxy_redirect     off;
+        proxy_hide_header  Vary;
+        proxy_set_header   Accept-Encoding '';
+        proxy_ignore_headers Cache-Control Expires;
+        proxy_set_header   Referer $http_referer;
+        proxy_set_header   Host   $host;
+        proxy_set_header   Cookie $http_cookie;
+        proxy_set_header   X-Real-IP  $remote_addr;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+        if ($request_method = 'OPTIONS') {
+            #add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            #
+            # Custom headers and headers various browsers *should* be OK with but aren't
+            #
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+            #
+            # Tell client that this pre-flight info is valid for 20 days
+            #
+            add_header 'Content-Type' 'application/json';
+            #add_header 'Access-Control-Allow-Origin' 'origin';
+            add_header 'Access-Control-Allow-Credentials' 'true';            
+            add_header 'Access-Control-Max-Age' 1728000;
+            add_header 'Content-Type' 'text/plain; charset=utf-8';
+            add_header 'Content-Length' 0;
+            return 204;
+         }
+         if ($request_method = 'POST') {
+            #add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+            add_header 'Content-Type' 'application/json';
+            #add_header 'Access-Control-Allow-Origin' 'origin';
+            add_header 'Access-Control-Allow-Credentials' 'true';
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+         }
+         if ($request_method = 'GET') {
+            #add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+            add_header 'Content-Type' 'application/json';
+            #add_header 'Access-Control-Allow-Origin' 'origin';
+            add_header 'Access-Control-Allow-Credentials' 'true';
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+         }
+    }
+
+	location ^~ /VGG16 {
+        proxy_pass http://unix:/var/sockets/VGG16.sock;
+
+        proxy_buffering off;
+		
+        # time out settings
+        proxy_connect_timeout 159s;
+        proxy_send_timeout   600;
+        proxy_read_timeout   600;
+        proxy_buffer_size    64k;
+        proxy_buffers     16 32k;
+        proxy_busy_buffers_size 64k;
+        proxy_temp_file_write_size 64k;
+        proxy_pass_header Set-Cookie;
+        proxy_redirect     off;
+        proxy_hide_header  Vary;
+        proxy_set_header   Accept-Encoding '';
+        proxy_ignore_headers Cache-Control Expires;
+        proxy_set_header   Referer $http_referer;
+        proxy_set_header   Host   $host;
+        proxy_set_header   Cookie $http_cookie;
+        proxy_set_header   X-Real-IP  $remote_addr;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+        if ($request_method = 'OPTIONS') {
+            #add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            #
+            # Custom headers and headers various browsers *should* be OK with but aren't
+            #
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+           #
+            # Tell client that this pre-flight info is valid for 20 days
+            #
+            add_header 'Content-Type' 'application/json';
+            #add_header 'Access-Control-Allow-Origin' 'origin';
+            add_header 'Access-Control-Allow-Credentials' 'true';            
+           add_header 'Access-Control-Max-Age' 1728000;
+            add_header 'Content-Type' 'text/plain; charset=utf-8';
+            add_header 'Content-Length' 0;
+            return 204;
+         }
+         if ($request_method = 'POST') {
+           #add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+            add_header 'Content-Type' 'application/json';
+            #add_header 'Access-Control-Allow-Origin' 'origin';
+            add_header 'Access-Control-Allow-Credentials' 'true';
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+         }
+         if ($request_method = 'GET') {
+            #add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+            add_header 'Content-Type' 'application/json';
+            #add_header 'Access-Control-Allow-Origin' 'origin';
+            add_header 'Access-Control-Allow-Credentials' 'true';
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+         }
+    }
+
+	location ^~ /Xception {
+        proxy_pass http://unix:/var/sockets/Xception.sock;
+
+        proxy_buffering off;
+		
+        # time out settings
+        proxy_connect_timeout 159s;
+        proxy_send_timeout   600;
+        proxy_read_timeout   600;
+        proxy_buffer_size    64k;
+        proxy_buffers     16 32k;
+        proxy_busy_buffers_size 64k;
+        proxy_temp_file_write_size 64k;
+        proxy_pass_header Set-Cookie;
+        proxy_redirect     off;
+        proxy_hide_header  Vary;
+        proxy_set_header   Accept-Encoding '';
+        proxy_ignore_headers Cache-Control Expires;
+        proxy_set_header   Referer $http_referer;
+        proxy_set_header   Host   $host;
+        proxy_set_header   Cookie $http_cookie;
+        proxy_set_header   X-Real-IP  $remote_addr;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+        if ($request_method = 'OPTIONS') {
+            #add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            #
+            # Custom headers and headers various browsers *should* be OK with but aren't
+            #
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+            #
+            # Tell client that this pre-flight info is valid for 20 days
+            #
+            add_header 'Content-Type' 'application/json';
+            #add_header 'Access-Control-Allow-Origin' 'origin';
+            add_header 'Access-Control-Allow-Credentials' 'true';            
+            add_header 'Access-Control-Max-Age' 1728000;
+            add_header 'Content-Type' 'text/plain; charset=utf-8';
+            add_header 'Content-Length' 0;
+            return 204;
+         }
+         if ($request_method = 'POST') {
+            #add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+            add_header 'Content-Type' 'application/json';
+            #add_header 'Access-Control-Allow-Origin' 'origin';
+            add_header 'Access-Control-Allow-Credentials' 'true';
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+         }
+         if ($request_method = 'GET') {
+            #add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+            add_header 'Content-Type' 'application/json';
+            #add_header 'Access-Control-Allow-Origin' 'origin';
+            add_header 'Access-Control-Allow-Credentials' 'true';
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+         }
+    }
+
+
+    error_page 404 /404.html;
+        location = /40x.html {
+    }
+
+    error_page 500 502 503 504 /50x.html;
+        location = /50x.html {
+    }
+}
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    server_name __;
+    return 301 https://www.this-is-my-domain.com;
+}
+
