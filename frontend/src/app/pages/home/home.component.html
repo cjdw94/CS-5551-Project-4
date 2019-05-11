@@ -1,0 +1,188 @@
+<app-nav-bar></app-nav-bar>
+
+
+
+<!-- Header start -->
+<section style="background-color:#114773; background-image:  url(../assets/img/background.png);">
+  <br><br><br><br>
+  <div class="home mt-5">
+
+    <div class="container" *ngIf="signIn">
+      <div class="row">
+        <div class="col-md-4 py-5 bg-primary text-white text-center">
+          <div class="left-side">
+            <h2 class="py-3">Login Form</h2>
+          </div>
+        </div>
+        <div class="col-md-8 py-5 border bg-white" id="right-side">
+          <h4 class="pb-4 text-black-50">Please type your email address as a username and password</h4>
+          <form class="form" (ngSubmit)="LogIn($event)">
+            <div class="row">
+              <div class="form-group col-md-6">
+                <input class="form-control" id="Username" name="Username" placeholder="Username"  type="text" [(ngModel)]="Username" required>
+              </div>
+              <div class="form-group col-md-6">
+                <input class="form-control" id="Password" name="Password" placeholder="Password" type="password" [(ngModel)]="Password" required>
+              </div>
+            </div>
+            <div class="form-row">
+<!--              <button class="btn btn-primary" type="button" onclick="LogIn(event)">Login</button>-->
+              <button name="submit" class="btn btn-primary" value="submit">Submit</button>
+              <button class="btn btn-danger" type="button" (click)="Register()">register</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" *ngIf="register">
+      <div class="row">
+        <div class="col-md-4 py-5 bg-danger text-white text-center">
+          <div class="left-side">
+            <h2 class="py-3">Registration Form</h2>
+          </div>
+        </div>
+        <div class="col-md-8 py-5 border bg-white">
+          <h4 class="pb-4 text-black-50">Please fill with your details</h4>
+          <form class="form" (ngSubmit)="SignUp($event)">
+<!--            <div class="row">-->
+<!--              <div class="form-group col-md-6">-->
+<!--                <input class="form-control" id="FirstName" name="FirstName" placeholder="First Name" type="text" [(ngModel)]="FirstName" required>-->
+<!--              </div>-->
+<!--              <div class="form-group col-md-6">-->
+<!--                <input class="form-control" id="LastName" name="LastName" placeholder="Last Name" type="text" [(ngModel)]="LastName" required>-->
+<!--              </div>-->
+<!--            </div>-->
+            <div class="row">
+              <div class="form-group col-md-6">
+                <input class="form-control" name="Username" placeholder="Email" type="text" [(ngModel)]="Username" required>
+              </div>
+              <div class="form-group col-md-6">
+                <input class="form-control"  name="Password" placeholder="Password" type="password" [(ngModel)]="Password" required>
+              </div>
+            </div>
+            <div class="form-row centered">
+              <button name="submit" class="btn btn-info btn-md" value="submit">Submit</button>
+              <button class="btn btn-danger" type="button" (click)="Cancel()">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="bg-white">
+  <div class="container">
+    <h1 class="display-2" style="color:#000000;" >Model as a Service </h1>
+    <p class="lead" style="color:#000000;">This system has several models that everyone is able to use by uploading the datasets and run them onto the models.</p>
+  <br>
+  </div>
+</div>
+
+
+<!--Developers-->
+<section class="developers " id="Developers">
+  <div class="justify-content-center text-center mt-4 ">
+      <a style="color:#fff; font-size:25px"><i class=""></i>Developed by</a>
+  </div>
+
+  <div class="container text-center mb-5 mt-5">
+    <div class="row">
+      <div class="col-sm">
+
+          <div class="container ">
+            <div class="row">
+              <div class="col-sm">
+                <div class="col-sm">
+                  <a href="#" class="photo">
+                    <img src="../assets/developers/Khalid.jpeg" />
+                    <div class="glow-wrap">
+                      <i class="glow"></i>
+                    </div>
+                  </a>
+                  <a class="speaker-title" style="color:#E44240;">Khalid Dhabbah</a><br />
+                  <a class="speaker-title" style="color:#fff;">Advanced Software Engineering</a><br />
+                  <a class="speaker-title" style="color:#E44240;">UMKC</a>
+                </div>
+              </div>
+              <div class="col-sm">
+                <div class="col-sm">
+                  <a href="#" class="photo">
+                    <img src="../assets/developers/Corey1.jpg" />
+                    <div class="glow-wrap">
+                      <i class="glow"></i>
+                    </div>
+                  </a>
+                  <a class="speaker-title" style="color:#E44240;">Corey Doss</a><br />
+                  <a class="speaker-title" style="color:#fff;">Advanced Software Engineering</a><br />
+                  <a class="speaker-title" style="color:#E44240;">UMKC</a>
+                </div>
+              </div>
+              <div class="col-sm">
+                <div class="col-sm">
+                  <a href="#" class="photo">
+                    <img src="../assets/developers/Chen.jpg" />
+                    <div class="glow-wrap">
+                      <i class="glow"></i>
+                    </div>
+                  </a>
+                  <a class="speaker-title" style="color:#E44240;">Chen Sun</a><br />
+                  <a class="speaker-title" style="color:#fff;">Advanced Software Engineering</a><br />
+                  <a class="speaker-title" style="color:#E44240;">UMKC</a>
+                </div>
+              </div>
+              <div class="col-sm">
+                <div class="col-sm">
+                  <a href="#" class="photo">
+                    <img src="../assets/developers/Tian1.png" />
+                    <div class="glow-wrap">
+                      <i class="glow"></i>
+                    </div>
+                  </a>
+                  <a class="speaker-title" style="color:#E44240;">Tian Cheng Xie</a><br />
+                  <a class="speaker-title" style="color:#fff;">Advanced Software Engineering</a><br />
+                  <a class="speaker-title" style="color:#E44240;">UMKC</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+</section>
+
+<section style="background:#ffffff;min-height: 386px; background-image:  url(../assets/img/img_4.jpg);">
+  <div class="section-overlay-in section-overlay-l section-overlay-w-50  bg-light">
+    <div>
+      <div class="container mt-5">
+        <div class="row">
+          <div class="col-sm">
+            <div class="container">
+              <a class="display-4" style="color:#000000; border-bottom-color:#fff;">Models Available</a>
+              <ul style="color:#000000;">
+                <li>DenseNet121</li>
+                <li>InceptionV3</li>
+                <li>MobileNet</li>
+                <li>Nasnet</li>
+                <li>ResNet50</li>
+                <li>VGG16</li>
+                <li>Xception</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm logo">
+<!--            <img class="d-block" src="../assets/img/Pineapple.png">-->
+<!--            <img src="../assets/img/Pineapple.png" class="img-rounded" width="304" height="236">-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<app-footer-bar></app-footer-bar>

@@ -1,0 +1,20 @@
+<!--<nav class="navbar navbar-dark" id="bg">-->
+<!--  <div class="container">-->
+<!--    <a class="navbar-brand" routerLink="/home">Home</a>-->
+<!--  </div>-->
+<!--</nav>-->
+
+
+<header class="header header-nav">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg ">
+        <div class="navbar-collapse navbar-nav">
+          <a href="#" class="navbar-left"><img src="../assets/img/Pineapple.png" width="50" height="50"></a>
+          <a class="nav-link ">Model as a Service</a>
+        </div>
+        <div class="collapse navbar-collapse ">
+          <button class="btn btn-danger" (click)="authService.logout()" *ngIf="(authService.user$ | async)?.uid">Logout</button>
+        </div>
+      </nav>
+    </div>
+</header>

@@ -1,0 +1,42 @@
+
+.footer-section {
+  background-color:rgba(15, 51, 113, 1);
+}
+
+
+
+/*===================================
+  Social Icons
+====================================== */
+.social-icons {
+  margin: 0;
+  padding: 0;
+}
+.social-icons li {
+  display: inline-block;
+  vertical-align: top;
+  margin: 2px 8px;
+}
+.social-icons a {
+  font-size: 20px;
+  width: 50px;
+  height: 50px;
+  line-height: 48px;
+  display: inline-block;
+  border-radius: 100%;
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #232323;
+  text-align: center;
+  z-index: 1;
+  background: #fff;
+  -webkit-transition: ease all 0.3s;
+  -moz-transition: ease all 0.3s;
+  -o-transition: ease all 0.3s;
+  transition: ease all 0.3s;
+}
+
+.social-icons a.facebook:hover {background-color: #3b5998; color: #fff;}
+.social-icons a.twitter:hover {background-color: #00aced; color: #fff;}
+.social-icons a.google:hover {background-color: #dc4a38; color: #fff;}
+.social-icons a.linkedin:hover {background-color: #007bb6; color: #fff;}

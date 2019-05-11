@@ -1,0 +1,51 @@
+<app-nav-bar></app-nav-bar>
+
+
+<div class="container-fluid mt-5">
+  <div class="row">
+    <div class="col-3 px-0  position-fixed">
+      <app-side-nav></app-side-nav>
+    </div>
+    <div class="col offset-3" id="main">
+
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="jumbotron jumbotron-fluid">
+              <div class="container">
+                <h1 class="display-4">Nasnet</h1>
+                <p class="lead"></p>
+              </div>
+            </div>
+            <form id="upload-file" method="post" enctype="multipart/form-data">
+              <label type= "button" class="upload-label" mat-raised-button (click)="fileInput.click()" >
+                Choose.
+              </label>
+              <input hidden #fileInput type="file" id="file" accept="image/*" (change)="postMethod($event.target.files)">
+            </form>    </div>
+          <div class="col">
+            <div *ngIf="fileToDisplay" class="image-section">
+              <div class="img-preview">
+                <div id="imagePreview">
+                  <img src="{{fileToDisplay}}" height="260">
+                </div>
+              </div>
+              <div>
+                <button type="button" class="btn btn-primary btn-lg " id="btn-predict" (click)="predict($event)">Predict!</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-5">
+          <div class="col">
+            <h3 style="color:#000000;" *ngIf="this.ReceivedData">Result: {{this.ReceivedData}}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

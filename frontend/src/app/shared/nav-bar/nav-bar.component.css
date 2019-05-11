@@ -1,0 +1,26 @@
+/*#bg{*/
+/*  background:#7386D5;*/
+/*}*/
+
+
+/*===================================
+  02. header
+====================================== */
+
+.header-nav {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0;
+  z-index: 9;
+  background:#fff;
+  border-top: 1px solid #0F4571;
+  border-bottom: 1px solid #0F4571;
+}
+a.nav-link {color: #0F4571;
+  display: inline-block;
+  font-weight: bold;
+  padding: 10px 1px 10px 0px;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;}
+a.nav-link:hover {border-bottom: 2px solid #e32b21; border-bottom-right-radius:30px;}
