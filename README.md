@@ -4,11 +4,11 @@
 </br>
 ## Backend
 ### Python3/Flask/nginx (Amazon EC2)/Gunicorn+Sockets
-![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_000_a.PNG )
+![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_000_a.png )
 </br></br>
 ## Frontend
 ### Angular CLI and Heroku
-![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_000_b.PNG )
+![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_000_b.png )
 </br></br></br>
 
 Deployment for our semester project is ultimately broken down into two halves - backend deployment and frontend deployment.
@@ -44,12 +44,12 @@ This is all that should be needed on the client-side while setting up the backen
 
 1.2.1.  First navigate to https://aws.amazon.com/ec2/ 
 
-![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_005.PNG?raw=true )
+![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_005.png )
 </br></br>
 
 1.2.1a.  Prices and specs as of 5/10/19:
 
-![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_005_a.PNG?raw=true )
+![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_005_a.png )
 </br></br>
 
 1.2.2.  Under AWS services -> Find Services -> Click on "EC2"
@@ -109,7 +109,7 @@ This is all that should be needed on the client-side while setting up the backen
 
 1.2.13.  After the previous step is finished, go to your Start Menu, find the PuTTY folder and launch PuTTYgen (comes with PuTTY installation by default)
 
-![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_017.PNG )
+![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_017.png )
 </br></br>
 
 1.2.14.  PuTTY does not natively recognize Amazon's key-pair file, but PuTTYgen will convert it to a compatible format for PuTTY --- <b>Click "Load"</b>.
@@ -119,7 +119,7 @@ This is all that should be needed on the client-side while setting up the backen
 
 1.2.15.  Make sure to <b>click on the dropdown menu</b> for the file extension type and change it to display <b>"All Files (*.*)"</b>
 
-![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_019.PNG )
+![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_019.png)
 </br></br>
 
 1.2.16.  PuTTYgen will import the key-pair file downloaded from AWS.
