@@ -23,11 +23,13 @@
 Deployment for our semester project is ultimately broken down into two halves - backend deployment and frontend deployment.
 
 </br>
+
 ## Getting Started
 
 
 In order to replicate this setup, this guide should be followed nearly (if not entirely) step-by-step.   <u>Using "sudo" when or where you shouldn't</u>, <u>missing a step while creating the Python3 virtual environments</u>, <u>forgetting to modify the package.json before pushing to Heroku</u>, <u>etc.</u> - all of these examples can break the project and keep you from progressing until you've figured out why.   Try to pay close attention and be cautious to avoid pitfalls - <b>you have been warned.</b>
 </br></br>
+
 ### Prerequisites
 
 Expectations of the reader:
