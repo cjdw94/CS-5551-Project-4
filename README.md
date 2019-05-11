@@ -312,10 +312,12 @@ openssl req -new -newkey rsa:2048 -nodes -keyout your-server-name.key -out your-
 1.2.45.  Just below the certificate locations in the config file, there is a comment that recommends to generate unique DH parameters.   Go ahead and type the following command into the terminal and wait for it to complete its execution.  It will store the results in the file in the location that is referenced in the following command.
 </br></br>
 ```
-open ssl dhparam -out /etc/pki/nginx/dhparams.pem 2048
+openssl dhparam -out /etc/pki/nginx/dhparams.pem 2048
 ```
 </br>
+
 ![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_047.PNG?raw=true )
+
 </br></br>
 
 1.2.46.  Everything in the "backend-models" config file for nginx can remain the same (or can be modified per your needs, so long as you know what you're modifying) - the only thing that <b>NEEDS</b> to be evaluated is the server block at the very bottom of the file.   This is the part of the config file that will take any HTTP requests and automatically redirect them to HTTPS instead.  In the return line, you must type the actual name of your domain within the redirect address.
