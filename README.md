@@ -216,7 +216,15 @@ sudo cp /home/ec2-user/backend-models/conf_files/nginx.conf /etc/nginx/nginx.con
 sudo cp /home/ec2-user/backend-models/conf_files/backend-models /etc/nginx/sites-available/backend-models
 sudo ln -s /etc/nginx/sites-available/backend-models /etc/nginx/sites-enabled/
 ```
+
+If you receive errors that the sites-available and/or sites-enabled directories do not exist, just go ahead and create them with the following, and then try the above commands again:
 </br></br></br>
+```
+sudo mkdir /etc/nginx/sites-available
+sudo mkdir /etc/nginx/sites-enabled
+```
+</br></br></br>
+
 
 1.2.30.  <b>Name.com</b> was utilized for a simpler domain for the frontend to connect to.   Create an account and search for your desired domain to see if it can be purchased for a reasonable price.   We were able to secure our domain with SSL certificates for ~ $15 total for 1-year.
 
