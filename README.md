@@ -216,7 +216,7 @@ sudo cp /home/ec2-user/backend-models/conf_files/nginx.conf /etc/nginx/nginx.con
 sudo cp /home/ec2-user/backend-models/conf_files/backend-models /etc/nginx/sites-available/backend-models
 sudo ln -s /etc/nginx/sites-available/backend-models /etc/nginx/sites-enabled/
 ```
-
+</br></br></br>
 If you receive errors that the sites-available and/or sites-enabled directories do not exist, just go ahead and create them with the following, and then try the above commands again:
 </br></br></br>
 ```
