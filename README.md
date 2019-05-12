@@ -168,7 +168,7 @@ This is all that should be needed on the client-side while setting up the backen
 ![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_025.PNG?raw=true )
 </br></br>
 
-1.2.22.  If you have not named your "Saved Session" yet, go ahead and type a name into the field under "Saved Sessions" now.   Otherwise, click on the name you gave your session in the list, and then <b>click "Save"</b> to save your details.  <u>From now on, all you'll have to do to connect to your session is load PuTTY and double click on the session name!</u>
+1.2.22.  If you have not named your "Saved Session" yet, go ahead and type a name into the field under "Saved Sessions" now - otherwise, just click on the name you gave your session in the list.  <b>Click "Save"</b> to save your details.  <u>From now on, all you'll have to do to connect to your session is load PuTTY and double click on the session name!</u>
 
 ![img]( https://github.com/cjdw94/CS-5551-Project-4/blob/master/readme_assets/img_026.PNG?raw=true )
 </br></br>
